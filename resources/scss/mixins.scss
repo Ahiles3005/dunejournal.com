@@ -1,0 +1,66 @@
+// Max width 100% on resize
+@mixin adaptive-width() {
+    max-width: 100%;
+}
+
+// Display flex
+@mixin flex($direction: row, $wrap: nowrap) {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: $direction;
+    -moz-flex-direction: $direction;
+    -ms-flex-direction: $direction;	
+    flex-direction: $direction;
+    -ms-flex-wrap: $wrap;
+    flex-wrap: $wrap;
+}
+
+// Disable user selection
+@mixin disable-select(){
+    user-select: none; /* standard syntax */
+    -webkit-user-select: none; /* webkit (safari, chrome) browsers */
+    -moz-user-select: none; /* mozilla browsers */
+    -khtml-user-select: none; /* webkit (konqueror) browsers */
+    -ms-user-select: none; /* IE10+ */
+}
+
+// Automatically generate fonts
+@mixin gen-fonts($fontsList){
+    @each $font in $fontsList {
+        @font-face {
+            font-family: $font;
+            src: url('../fonts/#{$font}.eot');
+            src: local(#{$font}), local(#{$font}),
+                url('../fonts/#{$font}.eot?#iefix') format('embedded-opentype'),
+                url('../fonts/#{$font}.woff') format('woff'),
+                url('../fonts/#{$font}.ttf') format('truetype');
+        }
+    }
+}
+
+// Transition
+@mixin transition($animation: 0.5s) {
+    -webkit-transition: $animation;
+    -moz-transition:    $animation;
+    -o-transition:      $animation;
+    -ms-transition:     $animation;
+    transition:         $animation;
+}
+
+// Box shadow
+@mixin box-shadow($shadow){
+    -webkit-box-shadow: $shadow;
+    -moz-box-shadow: $shadow;
+    box-shadow: $shadow;
+}
+
+// Transform
+@mixin transform($transform){
+    -webkit-transform: $transform;
+  -moz-transform: $transform;
+  -ms-transform: $transform;
+  -o-transform: $transform;
+  transform: $transform;
+}

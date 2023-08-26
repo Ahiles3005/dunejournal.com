@@ -1,0 +1,1450 @@
+@use 'settings.scss' as *;
+
+@use '_mq.scss' as * with (
+  $breakpoints: $breakpoints,
+  /* $show-breakpoints: $show-breakpoints */
+);
+
+@import '~normalize.css/normalize.css';
+@import '~select2/dist/css/select2.css';
+@import 'richtext.scss';
+
+$slick-font-path: "../fonts/" !default;
+$slick-font-family: "slick" !default;
+
+@import '~slick-carousel/slick/slick', '~slick-carousel/slick/slick-theme';
+@import 'mixins';
+
+// Generate fonts
+@include gen-fonts($fonts);
+
+html {
+    font-family: 'Onest-Medium';
+}
+
+body {
+    background-color: #FFEAC0;
+}
+
+.btn {
+    cursor: pointer;
+    outline: none;
+    border: none;
+
+    &_white {
+        display: block;
+        margin: 0 auto;
+        font-size: 16px;
+        line-height: 20px;
+        color: map-get($colors, nav);
+        background: map-get($colors, white);
+        border: 1px solid #DADADA;
+        border-radius: 10px;
+        padding: 10px;
+    }
+}
+
+.hidden {
+    display: none;
+}
+
+.ul-clear {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+
+.inline-ul {
+    @extend .ul-clear;
+
+    li {
+        display: inline-block;
+    }
+}
+
+.input-clear {
+    border: none;
+    background: transparent;
+    outline: none;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    @include transition(0.3s);
+
+    &:hover, &:active {
+        color: inherit;
+    }
+}
+
+.text-center {
+    text-align: center !important;
+}
+
+::-webkit-scrollbar {
+    width: 4px;
+}
+
+::-webkit-scrollbar-track {
+    background: map-get($colors, white);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgb(152, 152, 152);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255);
+}
+
+.img-adaptive {
+    @include adaptive-width;
+}
+
+.slick-list {
+    .slick-loading & {
+        background: #fff slick-image-url("../images/ajax-loader.gif") center center no-repeat;
+    }
+}
+
+.burger {
+    width: 30px;
+    height: 33px;
+    background-color: transparent;
+    background: url('../images/burger.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+    right: 17px;
+    top: 15px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 0 15px;
+    position: relative;
+    z-index: 5;
+
+    &__logo {
+        font-size: 32px;
+        font-family: 'Onest-Bold';
+        padding-top: 15px;
+        margin: 0;
+    }
+
+    .widget {
+        font-size: 20px;
+        line-height: 25px;
+        font-family: 'Onest-Bold';
+        padding-top: 20px;
+
+        @include mq($until: 1100px){
+           margin: auto;
+           padding-top: 0;
+        }
+
+        @include mq($until: 768px){
+            width: 100%;
+            text-align: center;
+        }
+    }
+
+    &__nav {
+        font-size: 18px;
+        line-height: 23px;
+        color: map-get($colors, nav);
+        margin: 15px 11px;
+
+        @include mq($until: 1100px){
+            ul {
+                text-align: center;
+            }
+        }
+
+        @include mq($until: 768){
+            .pc-nav {
+                display: none;
+            }
+        }
+
+        li {
+            margin: 7px 11px;
+        }
+
+        .mob-nav {
+            @include mq($from: 769px){
+                display: none;
+            }
+        }
+    }
+}
+
+/* CONTENT */
+.content-limited {
+    width: 792px;
+    @include adaptive-width;
+    margin: 20px auto 100px;
+    box-sizing: border-box;
+    padding: 10px;
+    box-sizing: border-box;
+
+    @include mq($until: 1100px){
+        margin: 10px auto 100px;
+    }
+
+    @include mq($until: 768px){
+       margin: 0 auto 100px;
+       padding: 0 15px 10px;
+    }
+}
+
+.content-news {
+    @extend .content-limited;
+    width: 1172px;
+    @include adaptive-width;
+    position: relative;
+    z-index: 2;
+    border: 1px solid #FFFFFF;
+    background-color: map-get($colors, white);
+    border-radius: 15px;
+    overflow: hidden;
+    padding: 0;
+    min-height: 300px;
+    margin-bottom: 72px;
+
+    @include mq($until: 991px){
+        margin-bottom: 72px;
+    }
+
+    @include mq($until: 768px){
+        padding: 0;
+        margin-top: 10px;
+        margin-bottom: 25px;
+    }
+
+    .links {
+        justify-content: flex-start;
+        margin: 0 -5px;
+
+        @include mq($until: 768px){
+            justify-content: center;
+        }
+
+        .link {
+            background: #F4F4F4;
+            border: 1px solid #F4F4F4;
+        }
+    }
+}
+
+.content-medium {
+    @extend .content-limited;
+    width: 865px;
+    @include adaptive-width;
+    position: relative;
+    z-index: 2;
+
+    @include mq($until: 768px){
+        padding: 0 15px;
+    }
+}
+
+.news-big {
+    @include adaptive-width;
+    box-sizing: border-box;
+
+    width: 100%;
+    min-height: 121px;
+
+    background: map-get($colors, white);
+    border: 1px solid map-get($colors, black);
+    border-radius: 15px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-top: 20px;
+
+    @include mq($until: 650px){
+        flex-direction: column-reverse;
+        align-items: flex-start;
+
+        .news-filter {
+            margin-left: auto;
+        }
+    }
+
+    /* @include mq($until: 425px){
+        .news-filter {
+            font-size: 9px;
+            line-height: 11px;
+        }
+    } */
+
+    @include mq($until: 425px){
+        margin-top: 10px;
+    }
+
+    &__text {
+        font-size: 30px;
+        color: map-get($colors, title);
+        font-family: 'Onest-Bold';
+        position: relative;
+        z-index: 2;
+        margin: 0;
+        max-width: 70%;
+        word-wrap: break-word;
+        /* margin: 10px 0 10px 35px; */
+        margin: 35px 10px 35px 35px;
+
+        @include mq($until: 768px){
+            font-size: 22px;
+        }
+
+        @include mq($until: 650px){
+            font-size: 20px;
+            max-width: 85%;
+            margin: 0 10px 17px 17px;
+        }
+
+        @include mq($until: 425px){
+            /* max-width: 75%; */
+            max-width: 90%;
+            margin-top: 10px;
+        }
+
+        @include mq($until: 340px){
+            font-size: 18px;
+        }
+    }
+}
+
+.head-arabic {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+}
+
+.banner-arabic {
+    height: 100%;
+    position: absolute;
+    z-index: 1;
+}
+
+.news-filter {
+  /*   width: 137px; */
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 2;
+    font-size: 16px;
+    line-height: 20px;
+    color: map-get($colors, black);
+    margin: 10px 10px auto 10px;
+    flex-shrink: 0;
+}
+
+.date {
+    font-size: 12px;
+    line-height: 22px;
+    font-family: 'Onest-Regular';
+    color: map-get($colors, title);
+    opacity: 0.4;
+}
+
+.news-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    /* align-items: center; */
+    align-items: flex-start;
+
+    @include mq($until: 900px){
+        margin: 0 -10px;
+        align-items: stretch;
+    }
+/*     margin: 20px 0;
+ */
+    .news {
+        box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.04);
+        border-radius: 15px;
+        background-color: map-get($colors, white);
+        width: 376px;
+       /*  height: 343px; */
+        overflow: hidden;
+        @include adaptive-width;
+        position: relative;
+        margin-top: 20px;
+
+        @include mq($until: 900px){
+            width: auto;
+            flex-basis: 220px;
+            max-width: 376px;
+            flex-grow: 1;
+            margin: 20px 10px 0;
+        }
+
+        @include mq($until: 750px){
+            min-height: 343px;
+            height: auto;
+        }
+
+        @include mq($until: 480px){
+            max-width: 100%;
+        }
+
+        @include mq($until: 425px){
+            margin: 10px 10px 0;
+            max-width: 100%;
+        }
+
+        &__shadow {
+            width: 100%;
+            @include adaptive-width;
+            height: 74px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #FFFFFF 94.96%);
+            position: absolute;
+            top: 94px;
+        }
+
+        .news-filter {
+            position: absolute;
+            z-index: 2;
+            margin: 0;
+            top: 10px;
+            right: 10px;
+        }
+
+        &__short {
+            padding: 14px 23px;
+
+            @include mq($until: 768px){
+                padding: 7px 23px;
+            }
+        }
+
+        &__date {
+            @extend .date;
+        }
+
+        &__image {
+            height: 168px;
+            display: block;
+            margin: auto;
+            width: 100%;
+        }
+
+        &__text {
+            font-size: 17px;
+            line-height: 24px;
+            color: map-get($colors, title);
+            word-break: break-word;
+
+            @include mq($until: 768px){
+                font-size: 16px;
+                line-height: 20px;
+            }
+        }
+    }
+}
+
+.news-video {
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    margin-top: 20px;
+
+    @include mq($until: 425px){
+        margin-top: 10px;
+    }
+
+    .background {
+        position: absolute;
+        right: 0;
+        left: 0;
+        margin: auto;
+    }
+
+    .video {
+        width: 198px;
+        height: 345px;
+        @include adaptive-width;
+        position: relative;
+        border-radius: 15px;
+        display: flex;
+        /* align-items: flex-end; */
+
+        @include mq($until: 500px){
+            width: 100%;
+            text-align: center;
+        }
+
+        video {
+            border-radius: 15px;
+
+            @include mq($until: 500px){
+                width: 100%;
+            }
+        }
+
+        &__play {
+            background: url('../images/video_play.svg') no-repeat center;
+            width: 37px;
+            height: 37px;
+            position: absolute;
+            right: 0;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+        }
+    }
+
+    &__short {
+        flex-basis: 250px;
+        margin-left: 32px;
+        margin-top: auto;
+        flex-grow: 1;
+
+        @include mq($until: 500px){
+            margin-left: 0;
+            margin-top: 10px;
+        }
+    }
+
+    &__date {
+        @extend .date;
+    }
+
+    &__text {
+        font-size: 27px;
+        line-height: 100%;
+        margin-bottom: 19px;
+        margin-top: 18px;
+
+        @include mq($until: 768px){
+            font-size: 24px;
+        }
+
+        @include mq($until: 525px){
+            font-size: 20px;
+        }
+    }
+
+    .news-filter {
+        position: absolute;
+        right: 0;
+        margin: 0;
+
+        @include mq($until: 500px){
+            top: 8px;
+            right: 8px;
+        }
+    }
+}
+
+%tag {
+    @include adaptive-width;
+    height: 40px;
+    background: map-get($colors, white);
+    font-size: 16px;
+    line-height: 20px;
+    color: map-get($colors, black);
+    border-radius: 10px;
+    margin: 5px 0;
+    text-align: left;
+    padding: 10px;
+    @include transition(0.3s);
+}
+
+.leftbar {
+    position: fixed;
+    z-index: 4;
+    bottom: 40px;
+    left: 17px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 100%;
+
+    @include mq($until: 991px){
+        display: none;
+    }
+
+    .tags-list {
+        width: 200px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        max-height: calc(90% - 100px);
+        overflow: auto;
+    }
+
+    .tag {
+        /* width: 165px; */
+        @extend %tag;
+
+        &-selected {
+            @extend %tag;
+            min-width: 200px;
+            background: map-get($colors, nav);
+            border-radius: 10px;
+            color: #F1CC85;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-sizing: border-box;
+            cursor: pointer;
+
+            span {
+                padding-right: 28px;
+            }
+        }
+
+        &-arrow-rotated {
+            transform: rotate(180deg);
+        }
+    }
+}
+
+.footer {
+    width: 100%;
+    @include adaptive-width;
+    max-height: 100vh;
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    background: linear-gradient(180deg, rgba(255, 234, 192, 0) 0%, #FFEAC0 94.96%);
+    min-height: 92px;
+    z-index: 3;
+
+    @include mq($until: 991px){
+        z-index: 9;
+    }
+
+    .toolbar {
+        background: map-get($colors, nav);
+        border-radius: 10px;
+        /* @include adaptive-width; */
+        max-width: calc(100% - 10px);
+        box-sizing: border-box;
+        /* padding: 5px; */
+        min-height: 40px;
+        position: relative;
+        z-index: 3;
+        bottom: 45px;
+        margin: 0 15px;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        @include mq($until: 991px){
+            width: 492px;
+        }
+
+        @include mq($until: 768px){
+            bottom: 15px;
+        }
+
+        &-logo {
+            color: map-get($colors, widget-button);
+            font-size: 20px;
+            font-family: 'Onest-Bold';
+            padding-left: 7px;
+        }
+
+        &__hot-items {
+            color: map-get($colors, white);
+            font-family: 'Onest-Medium';
+
+            @include mq($until: 991px){
+                display: none;
+            }
+
+            ul {
+                margin: 0 5px;
+            }
+
+            li {
+                margin: 5px 10px;
+                a:hover {
+                    color: map-get($colors, widget-button);
+                }
+            }
+        }
+
+        &__buttons {
+            display: flex;
+            align-items: center;
+            margin: 0 2.5px;
+        }
+
+        &-content {
+            position: relative;
+            bottom: 55px;
+            z-index: 5;
+            width: 668px;
+            /* @include adaptive-width; */
+            max-width: 95%;
+            min-height: 243px;
+            background: map-get($colors, nav);
+            border-radius: 10px;
+            padding: 5px;
+            color: map-get($colors, white);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            @include mq($until: 768px){
+                bottom: 25px;
+            }
+
+            &__label {
+                font-size: 11px;
+                line-height: 14px;
+                opacity: 0.5;
+                font-family: 'Onest-Regular';
+            }
+
+            &__header {
+                display: flex;
+                align-items: center;
+                /* justify-content: space-between; */
+                position: relative;
+
+                .search {
+                    /* flex-grow: 1; */
+                    background: rgba(241, 204, 133, 0.4);
+                    border-radius: 5px;
+                    /* width: 100%; */
+                    width: calc(100% - 111px);
+                    @include adaptive-width;
+                    margin: 0 17px;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    font-size: 14px;
+                    line-height: 18px;
+                    box-sizing: border-box;
+                    padding: 6px 8px;
+
+                    input {
+                        color: map-get($colors, white);
+                        font-family: 'Onest-Regular';
+                        flex-grow: 1;
+                        min-width: 100px;
+
+                        &::placeholder {
+                            color: rgba(255, 255, 255, 0.5);;
+                        }
+                    }
+                }
+
+                .minimize {
+                    cursor: pointer;
+                    position: absolute;
+                    /* right: 5px;
+                    top: 14px; */
+                    right: 0;
+                    top: 9px;
+                    padding: 5px;
+                }
+            }
+
+            &__footer {
+
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                @include mq($until: 500px){
+                    margin-top: 10px;
+                }
+
+                li {
+                    font-size: 11px;
+                    line-height: 14px;
+                    opacity: 0.6;
+                    margin: 10px;
+
+                    @include mq($until: 500px){
+                        margin: 5px 10px;
+                    }
+
+                    a:hover {
+                        color: map-get($colors, widget-button);
+                    }
+                }
+
+                &-buttons {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+            }
+
+            &__body {
+                display: flex;
+                flex-wrap: wrap;
+                align-items: flex-start;
+                flex-grow: 1;
+                padding-left: 7px;
+            }
+
+            &__left {
+                li {
+                    margin: 14px 0;
+                }
+
+                @include mq($until: 500px){
+                    font-size: 14px;
+
+                    ul {
+
+                        margin: 0 -27px;
+
+                        li {
+                            display: inline-block;
+                            margin: 7px 27px;
+                        }
+
+                    }
+
+
+
+                }
+            }
+
+            &__right {
+                margin-left: 50px;
+                flex-grow: 1;
+                /* flex-basis: 450px; */
+                flex-basis: 250px;
+
+                @include mq($until: 500px){
+                    font-size: 14px;
+                }
+
+                @include mq($until: 500px){
+                    margin-left: 0;
+                    width: 100%;
+                    flex-basis: 100%;
+                }
+
+                ul {
+                    margin: 0 -27px;
+                }
+
+                li {
+                    margin: 7px 27px;
+                }
+            }
+
+            &__items {
+                overflow-y: scroll;
+                overflow-x: hidden;
+                direction: rtl;
+                max-height: 135px;
+
+                @include mq($until: 500px){
+                    max-height: 90px;
+                }
+
+                /* width */
+                &::-webkit-scrollbar {
+                    width: 2px;
+                }
+
+                /* Track */
+                &::-webkit-scrollbar-track {
+                    background: rgba(255, 255, 255, 0.5);
+                }
+
+                /* Handle */
+                &::-webkit-scrollbar-thumb {
+                    background: map-get($colors, white);
+                }
+
+                /* Handle on hover */
+                &::-webkit-scrollbar-thumb:hover {
+                    background: map-get($colors, white);
+                }
+
+                ul, li {
+                    direction: ltr;
+                }
+
+                li {
+                    padding-left: 5px;
+
+                    a:hover {
+                        color: map-get($colors, widget-button);
+                    }
+                }
+            }
+        }
+    }
+}
+
+.btn-toolbar {
+    width: 33px;
+    height: 30px;
+    background: map-get($colors, widget-button);
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px 2.5px;
+
+    &-link {
+        @extend .btn-toolbar;
+        width: 30px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 4.6875px;
+    }
+}
+
+#search-send {
+    cursor: pointer;
+}
+
+.hot-image {
+    width: 198px;
+    @include adaptive-width;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.alert {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    @include adaptive-width;
+    width: 500px;
+    padding: 15px 30px;
+    box-sizing: border-box;
+    border-radius: 12px;
+    z-index: 3;
+    background: white;
+    box-shadow: 0px 0px 3px #969696;
+
+    &.error {
+        border: 2px solid #ec573d;
+    }
+
+    &.success {
+        border: 2px solid #3dec71;
+    }
+
+    span {
+        font-size: 16px;
+        font-family: 'Onest-Medium';
+    }
+}
+
+.no-items {
+    font-size: 30px;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+}
+
+%label {
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 25px;
+    font-family: 'Onest-Regular';
+}
+
+.info {
+    position: relative;
+    z-index: 1;
+
+    .label {
+        @extend %label;
+
+        &_bold {
+            font-family: 'Onest-Bold';
+        }
+    }
+
+    .ul-clear {
+        @extend %label;
+
+        li {
+            span {
+                padding-left: 20px;
+            }
+        }
+    }
+}
+
+.big-header {
+    font-size: 48px;
+    line-height: 120%;
+
+    @include mq($until: 768px){
+        font-size: 30px;
+        line-height: 100%;
+    }
+}
+
+.flex-row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+%discuss {
+    font-size: 37px;
+    line-height: 39px;
+    color: map-get($colors, nav);
+
+    @include mq($until: 768px){
+        font-size: 27px;
+        line-height: 31px;
+    }
+}
+.cooperation {
+
+    .flex-row {
+        justify-content: space-between;
+        @include mq($from: 769px){
+            @include adaptive-width;
+        }
+
+        @include mq($until: 768px){
+            margin: 0 -10px;
+            justify-content: center;
+        }
+    }
+
+    .discuss {
+        /* flex-grow: 1; */
+        flex-grow: 1;
+        max-width: 376px;
+        flex-basis: 300px;
+        height: 343px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        @extend %discuss;
+        border-radius: 15px;
+        border: 1px solid #DADADA;
+        margin: 23px 0 0;
+        padding: 23px;
+        box-sizing: border-box;
+
+        @include mq($until: 768px){
+            height: auto;
+            margin: 23px 10px 0;
+            min-height: 140px;
+            max-width: 100%;
+        }
+
+        &_green {
+            background: linear-gradient(180deg, #3FC928 0%, #F4FFAE 100%);
+        }
+
+        &_blue {
+            background: linear-gradient(180deg, #2872C9 0%, #EAAEFF 100%);
+        }
+
+        &_purple  {
+            background: linear-gradient(180deg, #FFFFFF 0%, #C3AEFF 100%);
+        }
+
+        &_full {
+            flex-grow: 1;
+            max-width: 100%;
+
+            @include mq($until: 768px){
+                min-height: 220px;
+            }
+        }
+    }
+}
+
+.chats {
+    @extend %discuss;
+    margin-top: 63px;
+    margin-bottom: 55px;
+    width: 100%;
+    @include adaptive-width;
+    position: relative;
+
+    @include mq($until: 576px){
+        font-size: 20px;
+        line-height: 100%;
+        margin-top: 31px;
+        margin-bottom: 25px;
+    }
+
+    p {
+        width: 727px;
+        @include adaptive-width;
+        margin: 0;
+
+        @include mq($until: 768px){
+            max-width: 90%;
+        }
+    }
+
+    .arrow-anchor {
+        position: absolute;
+        right: 0;
+        top: 12px;
+
+        @include mq($until: 768px){
+            top: 5px;
+        }
+    }
+}
+
+.emails {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 17px;
+    padding: 20px 0;
+    box-sizing: border-box;
+    border-top: 1px solid #D5D5D5;
+    border-bottom: 1px solid #D5D5D5;
+
+    @include mq($until: 425px){
+        border-top: 0;
+        border-bottom: 0;
+        padding: 0;
+    }
+
+    .email {
+        margin: 27px 0;
+
+        @include mq($until: 768px){
+            flex-basis: 50%;
+            margin: 13px auto;
+            text-align: center;
+        }
+
+        @include mq($until: 425px){
+            flex-basis: 100%;
+        }
+
+        &__type {
+            font-family: 'Onest-Medium';
+            margin-top: 0;
+        }
+
+        &__value {
+            font-family: 'Onest-Regular';
+        }
+    }
+}
+
+.donate {
+    margin-top: 52px;
+    margin-bottom: 44px;
+
+    @include mq($until: 425px){
+        margin-top: 27px;
+        margin-bottom: 52px;
+    }
+}
+
+.h3-custom {
+    font-size: 16px;
+    line-height: 20px;
+    color: map-get($colors, nav);
+}
+
+.links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .link {
+        margin: 10px 5px;
+        background: map-get($colors, white);
+        border: 1px solid map-get($colors, white);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        @include transition(0.3s);
+
+/*         @include mq($until: 425px){
+            width: 95px;
+            height: 95px;
+        } */
+
+        &:hover {
+            background: #27A6E5;
+        }
+    }
+}
+
+.news-head {
+    position: relative;
+    color: map-get($colors, white);
+    min-height: 349px;
+
+    @include mq($until: 768px){
+        min-height: auto;
+    }
+
+    .blur {
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 0px 0px 20px 20px;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        z-index: 2;
+        top: 0;
+        left: 0;
+        right: 0;
+
+        @include mq($until: 768px){
+            border-radius: 0px 0px 10px 10px;
+        }
+    }
+
+    &__content {
+        position: relative;
+        z-index: 3;
+        padding: 30px;
+        box-sizing: border-box;
+        width: 740px;
+        @include adaptive-width;
+    }
+
+    .news-filter {
+        position: absolute;
+        z-index: 2;
+        top: 10px;
+        right: 10px;
+
+        @include mq($until: 768px){
+            right: auto;
+            left: 16px;
+        }
+    }
+
+    &__title {
+        margin-top: 0;
+        font-size: 60px;
+        line-height: 100%;
+        margin-bottom: 10px;
+
+        @include mq($until: 768px){
+            font-size: 30px;
+            line-height: 100%;
+            margin-top: 52px;
+        }
+    }
+
+    &__label {
+        font-size: 32px;
+        line-height: 35px;
+
+        @include mq($until: 768px){
+            font-size: 22px;
+            line-height: 26px;
+        }
+    }
+
+    &__image {
+        position: absolute;
+        z-index: 1;
+        width: 100%;
+        height: 100%;
+    }
+
+    &__stats {
+        font-size: 16px;
+        line-height: 27px;
+        margin-top: 63px;
+        position: absolute;
+        bottom: 29px;
+        left: 32px;
+        z-index: 2;
+
+        @include mq($until: 768px){
+            position: relative;
+        }
+    }
+
+}
+
+.news-content {
+
+    margin-top: 30px;
+    margin-bottom: 120px;
+
+    .news-text {
+        font-family: 'Onest-Regular';
+        line-height: 28px;
+        padding: 20px;
+        box-sizing: border-box;
+        width: 519px;
+        @include adaptive-width;
+        margin: 0 auto;
+        word-wrap: break-word;
+
+        p {
+            margin-top: 0;
+        }
+    }
+
+    .news-carousel {
+
+        &__item {
+            margin: 5px;
+        }
+
+        &__image {
+            width: 495px;
+        }
+    }
+
+    %slick-arrow {
+        background: rgba(255, 255, 255, 0.01);
+        backdrop-filter: blur(12.5px);
+        border-radius: 49px;
+        z-index: 2;
+        width: 40px;
+        height: 50px;
+        cursor: pointer;
+    }
+
+    .slick-prev {
+        left: 10px;
+        @extend %slick-arrow;
+    }
+
+    .slick-next {
+        right: 10px;
+        @extend %slick-arrow;
+    }
+}
+
+.random-article {
+    position: absolute;
+    width: 174px;
+    right: 46px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 24px;
+    cursor: pointer;
+
+    @include mq($until: 991px){
+        display: none;
+    }
+
+    &__image {
+        width: 118px;
+        height: 118px;
+        border-radius: 12px;
+    }
+
+    &__title {
+        font-size: 15px;
+        line-height: 18px;
+        color: map-get($colors, nav);
+        padding-top: 10px;
+    }
+}
+
+.share {
+    width: 519px;
+    @include adaptive-width;
+    margin: auto;
+    padding: 20px;
+    box-sizing: border-box;
+
+    @include mq($until: 768px){
+        text-align: center;
+    }
+
+    &__label {
+        font-size: 13px;
+        line-height: 15px;
+        margin-bottom: 0;
+        font-family: 'Onest-Medium';
+    }
+
+}
+
+.other-news {
+    width: 1172px;
+    @include adaptive-width;
+    margin: 0px auto 120px;
+
+
+    @include mq($until: 768px){
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
+    .read-more {
+        margin-top: 0;
+
+        @include mq($until: 1180px){
+            padding-left: 10px;
+            box-sizing: border-box;
+        }
+
+        @include mq($until: 768px){
+            margin-bottom: 0;
+        }
+    }
+
+    .news-row {
+        @include adaptive-width;
+
+        @include mq($until: 900px){
+            margin: 0;
+        }
+
+        @include mq($until: 768px){
+            justify-content: center;
+        }
+    }
+
+    .news {
+        flex-basis: 220px;
+        max-width: 376px;
+        flex-grow: 1;
+
+        @include mq($until: 1180px){
+            margin: 10px 10px 0;
+        }
+
+        @include mq($until: 768px){
+            flex-basis: 270px;
+            flex-grow: 0;
+        }
+
+        @include mq($until: 600px){
+            flex-basis: 100%;
+            flex-grow: 1;
+            min-height: auto;
+        }
+    }
+}

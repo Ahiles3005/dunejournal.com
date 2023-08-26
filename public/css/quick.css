@@ -1,0 +1,14 @@
+.news, .news-video {
+    cursor: pointer;
+}
+
+.leftbar .tag, .leftbar .tag-selected {
+    height: auto;
+    min-height: 40px;
+    width: 100%;
+}
+
+.leftbar .tags-list a {
+    width: 95%;
+    max-width: 95%;
+}

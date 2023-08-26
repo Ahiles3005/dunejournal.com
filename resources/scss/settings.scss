@@ -1,0 +1,37 @@
+$breakpoints: (
+  mobile_small: 320px,
+  mobile_medium: 375px,
+  mobile_big: 425px,
+  tablet: 640px,
+  tablet_custom: 768px,
+  desktop: 991px,
+  wide: 1200px,
+  // Tweakpoints
+  desktopAd: 810px,
+  mobileLandscape: 480px,
+);
+
+$show-breakpoints: (mobile_small, mobile_medium, mobile_big, mobileLandscape, tablet, tablet_custom, desktop, wide);
+
+$colors: (
+    nav: #333333,
+    black: #000000,
+    white: #ffffff,
+    title: #072D4B,
+    widget-button: #F1CC85
+);
+
+$fonts: (
+    'Onest-MediumItalic',
+    'Onest-Italic',
+    'Onest-Bold',
+    'Onest-Regular',
+    'Onest-Medium',
+    'Onest-BoldItalic',
+    'Onest-ThinItalic',
+    'Onest-Black',
+    'Onest-Light',
+    'Onest-LightItalic',
+    'Onest-BlackItalic',
+    'Onest-Thin'
+);

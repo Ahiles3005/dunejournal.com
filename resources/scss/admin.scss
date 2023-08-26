@@ -1,0 +1,19 @@
+@import "~bootstrap/scss/bootstrap";
+@import 'richtext.scss';
+@import '~select2/dist/css/select2.css';
+
+.asset {
+    width: 300px;
+}
+
+.gallery-item {
+    position: relative;
+
+    .del-gallery-item {
+        position: absolute;
+        right: 0;
+        top: 0;
+        z-index: 2;
+        padding: 2px 8px;
+    }
+}
