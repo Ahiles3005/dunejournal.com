@@ -18,7 +18,7 @@
         for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
         k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
         (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
-    
+
         ym(92970081, "init", {
             clickmap:true,
             trackLinks:true,
@@ -30,11 +30,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="description" content="@yield('description', 'Новостной портал Dubai')">
+    <meta name="description" content="@yield('description', 'Добро пожаловать на Dubai News! Мы предлагаем вам самую актуальную информацию о событиях, новостях, местах отдыха, кафе и ресторанах Дубая. Оставайтесь в курсе всего, что происходит в этом удивительном городе.')">
     <meta name="keywords" content="Dubai, news, новости Дубай, Дубай">
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.png') }}">
 
-    <title>@yield('title', 'Dubai News')</title>
+    <title>@yield('title', 'Dubai News - Ваш источник новостей, событий и развлечений в Дубае')</title>
 
     <link rel="stylesheet" href="{{ mix('assets/css/styles.css') }}">
     <link rel="stylesheet" href="{{ asset('css/quick.css') }}?v=1">

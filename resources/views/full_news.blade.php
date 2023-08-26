@@ -1,6 +1,6 @@
 @extends('components.wrapper')
 
-@section('title', $article->short_descr)
+@section('title', $seoTitle)
 @section('description', $article->short_descr)
 
 @section('arabic-text')

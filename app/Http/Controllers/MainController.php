@@ -56,46 +56,98 @@ class MainController extends Controller
         ])->render() );
     }
 
-    public function filterByTag(){
-        if( !isset($this->request->id) ) return redirect()->back()->withErrors('Не удалось обнаружить тэг для поиска!');
+    public function filterByTag()
+    {
+        if (!isset($this->request->id)) {
+            return redirect()->back()->withErrors('Не удалось обнаружить тэг для поиска!');
+        }
 
         $id = intval($this->request->id);
 
         $tag = Tags::find($id);
-        if($tag == null) return redirect()->back()->withErrors('Не удалось обнаружить тэг для поиска!');
+        if ($tag == null) {
+            return redirect()->back()->withErrors('Не удалось обнаружить тэг для поиска!');
+        }
 
         return view('tag_news', [
             'tags' => Tags::orderBy('id', 'desc')->get(),
             'categories' => Categories::all(),
             //'news' => $this->newsTags->findNews($this->news, $id),
             'news' => $this->news->filterByTag($id),
-            'title' => $tag->name
+            'title' => $tag->name,
+            'seoTitle' => "{$tag->name}: Интересные новости, мероприятия и развлечения в Дубае | Dubai News",
+            'seoDescription' => "{$tag->name} в Дубае на вместе с Dubai News. Новости, интересные события и места ожидают вас. Будьте в курсе вместе с нами!"
         ]);
     }
 
-    public function filterByCategory(){
-        if( !isset($this->request->id) ) return redirect()->back()->withErrors('Не удалось обнаружить категорию для поиска!');
+    public function filterByCategory()
+    {
+        if (!isset($this->request->id)) {
+            return redirect()->back()->withErrors('Не удалось обнаружить категорию для поиска!');
+        }
 
         $id = intval($this->request->id);
 
         $category = Categories::find($id);
-        if($category == null) return redirect()->back()->withErrors('Не удалось обнаружить категорию для поиска!');
+        if ($category == null) {
+            return redirect()->back()->withErrors('Не удалось обнаружить категорию для поиска!');
+        }
+
+        $seoTitle = null;
+        $seoDescription = null;
+        switch ($id) {
+            case 1:
+                $seoTitle = 'Лучшее в Дубае: Топовые новости, места и события | Dubai News';
+                $seoDescription = 'Откройте для себя абсолютное лучшее, что предлагает Дубай! На Dubai News мы собрали для вас топовые новости, невероятные места, рестораны и события. Готовьтесь к захватывающему путешествию по самому лучшему в Дубае.';
+                break;
+            case 6:
+                $seoTitle = 'Загляните в сердце Дубая: Городские новости, события и обзоры | Dubai News';
+                $seoDescription = 'Разберитесь в пульсе Дубая с нами! На Dubai News мы предоставляем свежие новости, захватывающие события и интересные обзоры, чтобы помочь вам погрузиться в жизнь этого удивительного города.';
+                break;
+            case 7:
+                $seoTitle = 'В центре событий: Горячие мероприятия, фестивали и встречи в Дубае | Dubai News';
+                $seoDescription = ' Будьте в курсе самых ярких и захватывающих мероприятий в Дубае! На Dubai News мы следим за горячими событиями, праздниками и встречами, чтобы вы не упустили ни одной возможности порадоваться уникальным событиям города.';
+                break;
+            case 9:
+                $seoTitle = 'Путеводитель по развлечениям: Куда сходить в Дубае для незабываемого времяпрепровождения | Dubai News';
+                $seoDescription = 'Путешествие в мир развлечений! На Dubai News мы подготовили для вас самый полный путеводитель по тому, куда стоит отправиться в Дубае для незабываемого и интересного отдыха.';
+                break;
+            case 10:
+                $seoTitle = 'Волшебный мир детства: Подборка лучших мероприятий и развлечений для детей в Дубае | Dubai News';
+                $seoDescription = 'Откройте для ваших маленьких приключенцев дверь в волшебный мир! На Dubai News мы собрали для вас самые интересные мероприятия, места и развлечения, чтобы сделать времяпровождение в Дубае незабываемым для детей.';
+                break;
+            case 13:
+                $seoTitle = 'Кулинарное путешествие: Откройте для себя лучшие кафе и рестораны Дубая | Dubai News';
+                $seoDescription = 'Погрузитесь в мир гастрономических наслаждений! На Dubai News мы представляем вам подборку лучших кафе и ресторанов, где вы сможете насладиться великолепными блюдами и атмосферой Дубая.';
+                break;
+            case 14:
+                $seoTitle = 'Дубай без затрат: Лучшие бесплатные мероприятия и развлечения в городе | Dubai News';
+                $seoDescription = 'Откройте для себя множество возможностей для бесплатного отдыха в Дубае! На Dubai News мы собрали для вас самые интересные бесплатные мероприятия, места и развлечения, чтобы позволить вам насладиться городом без дополнительных затрат.';
+                break;
+        }
 
         return view('category_news', [
             'tags' => Tags::orderBy('id', 'desc')->get(),
             'categories' => Categories::all(),
             'news' => $this->news->filterByCategory($id),
-            'title' => $category->name
+            'title' => $category->name,
+            'seoTitle' => $seoTitle ?? $category->name,
+            'seoDescription' => $seoDescription ?? $category->name
         ]);
     }
 
-    public function pageNews(){
-        if( !isset($this->request->id) ) return redirect()->back()->withErrors('Не передано параметр для поиск новостей!');
+    public function pageNews()
+    {
+        if (!isset($this->request->id)) {
+            return redirect()->back()->withErrors('Не передано параметр для поиск новостей!');
+        }
 
         $id = intval($this->request->id);
 
         $article = News::find($id);
-        if($article == null) return redirect()->back()->withErrors('Не удалось обнаружить найти новость!');
+        if ($article == null) {
+            return redirect()->back()->withErrors('Не удалось обнаружить найти новость!');
+        }
 
         $randomTag = Tags::inRandomOrder()->first();
 
@@ -104,7 +156,9 @@ class MainController extends Controller
             'categories' => Categories::all(),
             'article' => $article,
             'random_tag_article' => $this->news->articleByTag($randomTag),  // FIX IT
-            'random_articles' => $this->news->getRandom(3, 'standart')
+            'random_articles' => $this->news->getRandom(3, 'standart'),
+            'seoTitle' => "{$article->short_descr} | Dubai News",
+            'seoDescription' => "[Тема статьи] узнайте больше о в статье на Dubai News. Мы предоставляем интересные подробности, анализ и информацию о событиях и местах Дубая."
         ]);
     }
 }

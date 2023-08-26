@@ -1,7 +1,7 @@
 @extends('components.wrapper')
 
-@section('title', "Dubai News | {$title}")
-@section('description', $title)
+@section('title', $seoTitle)
+@section('description', $seoDescription)
 
 @section('arabic-text')
     <img src="{{ asset("assets/images/top-text.png") }}" alt="" class="img-adaptive head-arabic">
