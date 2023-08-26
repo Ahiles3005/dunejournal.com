@@ -76,7 +76,7 @@ class MainController extends Controller
             'news' => $this->news->filterByTag($id),
             'title' => $tag->name,
             'seoTitle' => "{$tag->name}: Интересные новости, мероприятия и развлечения в Дубае | Dubai News",
-            'seoDescription' => "{$tag->name} в Дубае на вместе с Dubai News. Новости, интересные события и места ожидают вас. Будьте в курсе вместе с нами!"
+            'seoDescription' => "{$tag->name} в Дубае на Dubai News. Новости, интересные события и места ожидают вас. Будьте в курсе вместе с нами!"
         ]);
     }
 
@@ -158,7 +158,7 @@ class MainController extends Controller
             'random_tag_article' => $this->news->articleByTag($randomTag),  // FIX IT
             'random_articles' => $this->news->getRandom(3, 'standart'),
             'seoTitle' => "{$article->short_descr} | Dubai News",
-            'seoDescription' => "[Тема статьи] узнайте больше о в статье на Dubai News. Мы предоставляем интересные подробности, анализ и информацию о событиях и местах Дубая."
+            'seoDescription' => "{$article->short_descr} узнайте больше о в статье на Dubai News. Мы предоставляем интересные подробности, анализ и информацию о событиях и местах Дубая."
         ]);
     }
 }
