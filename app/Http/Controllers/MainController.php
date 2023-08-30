@@ -174,4 +174,17 @@ class MainController extends Controller
             'seoDescription' => "{$article->short_descr} узнайте больше о в статье на Dubai News. Мы предоставляем интересные подробности, анализ и информацию о событиях и местах Дубая."
         ]);
     }
+
+    public function pageAllNews()
+    {
+        return view('all_news', [
+            'tags' => Tags::orderBy('id', 'desc')->get(),
+            'categories' => Categories::all(),
+            'news' => News::all()->sortDesc()->chunk(2),
+            'title' => 'Все новости',
+            'seoTitle' => 'Все новости | Dubai News',
+            'seoDescription' => 'Все новости узнайте больше о в статье на Dubai News. Мы предоставляем интересные подробности, анализ и информацию о событиях и местах Дубая.'
+
+        ]);
+    }
 }

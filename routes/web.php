@@ -25,7 +25,7 @@ Route::controller(MainController::class)->group(function () {
     Route::get('/personal', 'personal')->name('page.personal');    // PAGE: personal
     Route::get('/about', 'about')->name('page.about');    // PAGE: about
     Route::post('/search', 'search')->name('search');    // Search news
-
+    Route::get('/article', 'pageAllNews')->name('page.all.news');
     //slug
     Route::get('/article/{slug}', 'pageNews')->name('page.news');    // PAGE: news
     Route::get('/list/tag/{slug}', 'filterByTag')->name('tag.search');    // Filter news by tag
