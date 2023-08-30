@@ -75,7 +75,8 @@
             @if ($random_tag_article != null)
                 <div class="random-article" onclick="window.open('{{ route('page.news', ['slug' => $random_tag_article->slug]) }}', '_self')">
                     <img src="{{ $random_tag_article->asset_url }}" alt="" class="img-adaptive random-article__image">
-                    <span class="random-article__title">{!! $random_tag_article->short_descr !!}</span>
+
+                    <span class="random-article__title"><a href="{{ route('page.news', ['slug' => $random_tag_article->slug]) }}">{!! $random_tag_article->short_descr !!}</a></span>
                 </div>
             @endif
 
@@ -128,7 +129,7 @@
 
                         <div class="news__short">
                             <span class="news__date">{{ formatHumanDate($item->created_at) }}</span>
-                            <p class="news__text">{{ $item->short_descr }}</p>
+                            <p class="news__text"><a href="{{ route('page.news', ['slug' => $item->slug]) }}">{{ $item->short_descr }}</a></p>
                         </div>
                     </div>
                 @endforeach

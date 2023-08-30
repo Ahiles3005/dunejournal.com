@@ -30,7 +30,8 @@
 
                                 <div class="news__short">
                                     <span class="news__date">{{ formatHumanDate($item->created_at) }}</span>
-                                    <p class="news__text">{{ $item->short_descr }}</p>
+                                    <p class="news__text"><a href="{{ route('page.news', ['slug' => $item->slug]) }}">{{ $item->short_descr }}</a></p>
+
                                 </div>
                             </div>
                         @endforeach
@@ -42,7 +43,7 @@
                     @if ($value->asset_url == null)
                         <div class="news-big" onclick="window.open('{{ route('page.news', ['slug' => $value->slug]) }}', '_self')">
                             <img src="{{ asset("assets/images/banner-text.png") }}" alt="" class="banner-arabic">
-                            <p class="news-big__text">{{ $value->short_descr }}</p>
+                            <p class="news-big__text"><a href="{{ route('page.news', ['slug' => $value->slug]) }}">{{ $value->short_descr }}</a></p>
                             <div class="news-filter">{{ $value->tag_name }}</div>
                         </div>
                     @else
@@ -64,7 +65,7 @@
 
                             <div class="news-video__short">
                                 <span class="news-video__date">{{ formatHumanDate($value->created_at) }}</span>
-                                <p class="news-video__text">{{ $value->short_descr }}</p>
+                                <p class="news-video__text"><a href="{{ route('page.news', ['slug' => $value->slug]) }}">{{ $value->short_descr }}</a></p>
                             </div>
 
                             <div class="news-filter">{{ $value->tag_name }}</div>
