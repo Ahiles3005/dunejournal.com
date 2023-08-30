@@ -58,14 +58,18 @@ class MainController extends Controller
 
     public function filterByTag()
     {
-        if (!isset($this->request->id)) {
+        if (!isset($this->request->slug)) {
             return redirect()->back()->withErrors('Не удалось обнаружить тэг для поиска!');
         }
 
-        $id = intval($this->request->id);
+        $slug = $this->request->slug;
+        $tag = Tags::where('slug', $slug)->first();
 
-        $tag = Tags::find($id);
         if ($tag == null) {
+            $tag = Tags::find($slug);
+            if($tag !== null){
+                return redirect()->secure("/list/tag/{$tag->slug}", 301);
+            }
             return redirect()->back()->withErrors('Не удалось обнаружить тэг для поиска!');
         }
 
@@ -73,7 +77,7 @@ class MainController extends Controller
             'tags' => Tags::orderBy('id', 'desc')->get(),
             'categories' => Categories::all(),
             //'news' => $this->newsTags->findNews($this->news, $id),
-            'news' => $this->news->filterByTag($id),
+            'news' => $this->news->filterByTag($tag->id),
             'title' => $tag->name,
             'seoTitle' => "{$tag->name}: Интересные новости, мероприятия и развлечения в Дубае | Dubai News",
             'seoDescription' => "{$tag->name} в Дубае на Dubai News. Новости, интересные события и места ожидают вас. Будьте в курсе вместе с нами!"
@@ -82,17 +86,21 @@ class MainController extends Controller
 
     public function filterByCategory()
     {
-        if (!isset($this->request->id)) {
+        if (!isset($this->request->slug)) {
             return redirect()->back()->withErrors('Не удалось обнаружить категорию для поиска!');
         }
 
-        $id = intval($this->request->id);
-
-        $category = Categories::find($id);
+        $slug = $this->request->slug;
+        $category = Categories::where('slug', $slug)->first();
         if ($category == null) {
+            $category = Categories::find($slug);
+            if($category !== null){
+                return redirect()->secure("/list/category/{$category->slug}", 301);
+            }
             return redirect()->back()->withErrors('Не удалось обнаружить категорию для поиска!');
         }
 
+        $id = $category->id;
         $seoTitle = null;
         $seoDescription = null;
         switch ($id) {
@@ -138,14 +146,19 @@ class MainController extends Controller
 
     public function pageNews()
     {
-        if (!isset($this->request->id)) {
+        if (!isset($this->request->slug)) {
             return redirect()->back()->withErrors('Не передано параметр для поиск новостей!');
         }
 
-        $id = intval($this->request->id);
+        $slug = $this->request->slug;
 
-        $article = News::find($id);
+        $article = News::where('slug', $slug)->first();
+
         if ($article == null) {
+            $article = News::find($slug);
+            if($article !== null){
+                return redirect()->secure("/article/{$article->slug}", 301);
+            }
             return redirect()->back()->withErrors('Не удалось обнаружить найти новость!');
         }
 

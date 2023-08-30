@@ -50,7 +50,7 @@
         <nav class="header__nav">
             <ul class="inline-ul pc-nav">
                 @foreach ($categories as $item)
-                    <li><a href="/list/category/{{ $item->id }}">{{$item->name}}</a></li>
+                    <li><a href="/list/category/{{ $item->slug }}">{{$item->name}}</a></li>
                 @endforeach
             </ul>
 
@@ -60,7 +60,7 @@
                 <div class="mob-nav__content" style="display: none">
                     <ul class="inline-ul">
                         @foreach ($categories as $item)
-                            <li><a href="/list/category/{{ $item->id }}">{{$item->name}}</a></li>
+                            <li><a href="/list/category/{{ $item->slug }}">{{$item->name}}</a></li>
                         @endforeach
                     </ul>
                 </div>
@@ -77,7 +77,7 @@
     <aside class="leftbar">
         <div class="tags-list" style="display: none">
             @foreach ($tags as $item)
-                <a href="/list/tag/{{ $item->id }}"><button class="btn tag" data-hover_color="{{$item->hover_color}}" data-id="{{ $item->id }}">{{$item->name}}</button></a>
+                <a href="/list/tag/{{ $item->slug }}"><button class="btn tag" data-hover_color="{{$item->hover_color}}" data-id="{{ $item->id }}">{{$item->name}}</button></a>
             @endforeach
         </div>
 
@@ -109,7 +109,7 @@
                     <div class="toolbar-content__items">
                         <ul class="ul-clear">
                             @foreach ($tags->where('is_hot', 1) as $item)
-                                <li><a href="/list/tag/{{ $item->id }}" class="tag-anchor" data-id="{{ $item->id }}">{{$item->name}}</a></li>
+                                <li><a href="/list/tag/{{ $item->slug }}" class="tag-anchor" data-id="{{ $item->id }}">{{$item->name}}</a></li>
                             @endforeach
                         </ul>
                     </div>
@@ -120,7 +120,7 @@
                     <div class="toolbar-content__items">
                         <ul class="inline-ul">
                             @foreach ($tags as $item)
-                                <li><a href="/list/tag/{{ $item->id }}" class="tag-anchor" data-id="{{ $item->id }}">{{$item->name}}</a></li>
+                                <li><a href="/list/tag/{{ $item->slug }}" class="tag-anchor" data-id="{{ $item->id }}">{{$item->name}}</a></li>
                             @endforeach
                         </ul>
                     </div>
@@ -154,7 +154,7 @@
             <div class="toolbar__hot-items">
                 <ul class="inline-ul">
                     @foreach ($tags->where('is_hot', 1) as $item)
-                        <li><a href="/list/tag/{{ $item->id }}">{{$item->name}}</a></li>
+                        <li><a href="/list/tag/{{ $item->slug }}">{{$item->name}}</a></li>
                     @endforeach
                 </ul>
             </div>

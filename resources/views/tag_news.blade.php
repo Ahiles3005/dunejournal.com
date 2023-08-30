@@ -19,7 +19,7 @@
                 @if (is_array($value))
                     <div class="news-row">
                         @foreach ($value as $item)
-                            <div class="news" onclick="window.open('{{ route('page.news', ['id' => $item->id]) }}', '_self')">
+                            <div class="news" onclick="window.open('{{ route('page.news', ['slug' => $item->slug]) }}', '_self')">
                                 @if ($item->asset_url == null)
                                     <img loading="lazy" src="{{ asset('assets/images/news_example.png') }}" alt="" class="img-adaptive news__image">
                                 @else
@@ -41,13 +41,13 @@
                 @else
 
                     @if ($value->asset_url == null)
-                        <div class="news-big" onclick="window.open('{{ route('page.news', ['id' => $value->id]) }}', '_self')">
+                        <div class="news-big" onclick="window.open('{{ route('page.news', ['slug' => $value->slug]) }}', '_self')">
                             <img src="{{ asset("assets/images/banner-text.png") }}" alt="" class="banner-arabic">
                             <p class="news-big__text">{{ $value->short_descr }}</p>
                             <div class="news-filter">{{ $value->tag_name }}</div>
                         </div>
                     @else
-                        <div class="news-video" onclick="window.open('{{ route('page.news', ['id' => $value->id]) }}', '_self')">
+                        <div class="news-video" onclick="window.open('{{ route('page.news', ['slug' => $value->slug]) }}', '_self')">
                             <img class="background img-adaptive" src="{{ asset("assets/images/mid-text.png") }}" alt=""/>
 
                             <div class="video">

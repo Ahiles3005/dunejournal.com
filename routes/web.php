@@ -24,17 +24,17 @@ Route::controller(MainController::class)->group(function () {
     Route::get('/', 'index')->name('page.index');    // PAGE: index
     Route::get('/personal', 'personal')->name('page.personal');    // PAGE: personal
     Route::get('/about', 'about')->name('page.about');    // PAGE: about
-    Route::get('/article/{id}', 'pageNews')->name('page.news');    // PAGE: news
     Route::post('/search', 'search')->name('search');    // Search news
-    Route::get('/list/tag/{id}', 'filterByTag')->where('id', '[0-9]+')->name('tag.search');    // Filter news by tag
-    Route::get('/list/category/{id}', 'filterByCategory')->where('id', '[0-9]+')->name('category.search');    // Filter news by category
+
+    //slug
+    Route::get('/article/{slug}', 'pageNews')->name('page.news');    // PAGE: news
+    Route::get('/list/tag/{slug}', 'filterByTag')->name('tag.search');    // Filter news by tag
+    Route::get('/list/category/{slug}', 'filterByCategory')->name('category.search');    // Filter news by category
 });
 
 /* ========================== [ADMIN] ========================== */
-Route::prefix('control-panel')->group( function(){
-
+Route::prefix('control-panel')->group(function () {
     Route::name('admin.')->group(function () {
-
         /* Admin/UserController.php */
         Route::controller(UserController::class)->group(function () {
             Route::get('/', 'indexPage')->name('page.index');   // Index page
@@ -48,7 +48,6 @@ Route::prefix('control-panel')->group( function(){
 
         // Only if authed
         Route::middleware(['admin.authed'])->group(function () {
-
             /* Admin/TagsController.php */
             Route::controller(TagsController::class)->group(function () {
                 Route::get('/tags', 'index')->name('page.tags');   // [Tags] Index page
@@ -76,7 +75,5 @@ Route::prefix('control-panel')->group( function(){
                 Route::post('/news/delete', 'delete')->name('news.del');   // Del news
             });
         });
-
     });
-
 });

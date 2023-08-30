@@ -73,7 +73,7 @@
 
 
             @if ($random_tag_article != null)
-                <div class="random-article" onclick="window.open('{{ route('page.news', ['id' => $random_tag_article->id]) }}', '_self')">
+                <div class="random-article" onclick="window.open('{{ route('page.news', ['slug' => $random_tag_article->slug]) }}', '_self')">
                     <img src="{{ $random_tag_article->asset_url }}" alt="" class="img-adaptive random-article__image">
                     <span class="random-article__title">{!! $random_tag_article->short_descr !!}</span>
                 </div>
@@ -90,19 +90,19 @@
                 <p class="share__label">Поделиться материалом:</p>
 
                 <div class="links">
-                    <a href="{{ route("page.news", ['id' => $article->id]) }}" onclick="event.preventDefault(); copy(this)">
+                    <a href="{{ route("page.news", ['slug' => $article->slug]) }}" onclick="event.preventDefault(); copy(this)">
                         <div class="link">
                             <img src="{{ asset("assets/images/link.svg") }}" alt="" class="img-adaptive">
                         </div>
                     </a>
 
-                    <a href="https://t.me/share/url?url={{ route("page.news", ['id' => $article->id]) }}&text={{ $article->short_descr }}">
+                    <a href="https://t.me/share/url?url={{ route("page.news", ['slug' => $article->slug]) }}&text={{ $article->short_descr }}">
                         <div class="link">
                             <img src="{{ asset("assets/images/telegram.svg") }}" alt="" class="img-adaptive">
                         </div>
                     </a>
 
-                    <a href="http://vk.com/share.php?url={{ route("page.news", ['id' => $article->id]) }}&title={{ $article->short_descr }}">
+                    <a href="http://vk.com/share.php?url={{ route("page.news", ['slug' => $article->slug]) }}&title={{ $article->short_descr }}">
                         <div class="link">
                             <img src="{{ asset("assets/images/vk.svg") }}" alt="" class="img-adaptive">
                         </div>
@@ -120,7 +120,7 @@
         <div class="other-news__list">
             <div class="news-row">
                 @foreach ($random_articles as $item)
-                    <div class="news" onclick="window.open('{{ route('page.news', ['id' => $item->id]) }}', '_self')">
+                    <div class="news" onclick="window.open('{{ route('page.news', ['slug' => $item->slug]) }}', '_self')">
                         <img src="{{ $item->asset_url }}" alt="" class="img-adaptive news__image">
 
                         <div class="news-filter">{{ $item->tags->first()->name }}</div>

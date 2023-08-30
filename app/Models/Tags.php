@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+
 class Tags extends Model
 {
     use HasFactory;
@@ -13,5 +14,6 @@ class Tags extends Model
 
     public $table = 'tags';
 
-    protected $fillable = ['name', 'hover_color', 'is_hot'];
+    protected $fillable = ['name', 'hover_color', 'is_hot', 'slug'];
+
 }

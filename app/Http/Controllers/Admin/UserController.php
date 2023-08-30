@@ -8,23 +8,28 @@ use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
-    public function __construct(Request $request){
+    public function __construct(Request $request)
+    {
         parent::__construct($request);
     }
 
-    public function indexPage(){
+    public function indexPage()
+    {
         return view('admin.index');
     }
 
-    public function auth(){
+    public function auth()
+    {
         $validator = Validator::make($this->request->all(), [
             'login' => ['required', 'string', 'min:1', 'max:100'],
             'pass' => ['required', 'string', 'min:1'],
         ]);
 
-        if( $validator->fails() ) return back()->withErrors($validator);
+        if ($validator->fails()) {
+            return back()->withErrors($validator);
+        }
 
-        if( strcmp($this->request->login, env('ADMIN_LOGIN')) === 0 && strcmp($this->request->pass, env('ADMIN_PASS')) === 0 ){
+        if (strcmp($this->request->login, env('ADMIN_LOGIN')) === 0 && strcmp($this->request->pass,env('ADMIN_PASS')            ) === 0) {
             session(['admin_authed' => true]);
             return redirect()->route('admin.page.index');
         }
@@ -32,7 +37,8 @@ class UserController extends Controller
         return back()->withErrors('Не удалось авторизоваться в админ-панели. Проверьте данные автентификации!');
     }
 
-    public function logout(){
+    public function logout()
+    {
         session()->forget('admin_authed');
         return redirect()->route('admin.page.index');
     }

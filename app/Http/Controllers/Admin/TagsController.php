@@ -6,54 +6,68 @@ use App\Http\Controllers\Controller;
 use App\Interfaces\ManagementInterface;
 use App\Models\NewsTags;
 use App\Models\Tags;
+use Cocur\Slugify\Slugify;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class TagsController extends Controller implements ManagementInterface
 {
-    public function __construct(Request $request){
+    public function __construct(Request $request)
+    {
         parent::__construct($request);
     }
 
-    public function index(){
+    public function index()
+    {
         return view('admin.tags', [
             'tags' => Tags::orderBy('id', 'desc')->get()
         ]);
     }
 
-    public function info(){
+    public function info()
+    {
         $validator = Validator::make($this->request->all(), [
             'id' => ['required', 'numeric']
         ]);
 
-        if( $validator->fails() ) return jsonResponse( ['error' => concatErrors( $validator->errors()->getMessages() ) ] );
+        if ($validator->fails()) {
+            return jsonResponse(['error' => concatErrors($validator->errors()->getMessages())]);
+        }
 
         $tag = Tags::find($this->request->id);
-        if($tag == null) return jsonResponse( ['error' => 'Тэг не существует!'] );
+        if ($tag == null) {
+            return jsonResponse(['error' => 'Тэг не существует!']);
+        }
 
         return jsonResponse($tag);
     }
 
-    public function delete(){
+    public function delete()
+    {
         $validator = Validator::make($this->request->all(), [
             'id' => ['required', 'numeric', 'min:1'],
         ]);
 
-        if( $validator->fails() ) return jsonResponse( ['error' => concatErrors( $validator->errors()->getMessages() ) ] );
+        if ($validator->fails()) {
+            return jsonResponse(['error' => concatErrors($validator->errors()->getMessages())]);
+        }
 
         $tag = Tags::find($this->request->id);
-        if($tag == null) return jsonResponse( ['error' => 'Тэг не существует!'] );
+        if ($tag == null) {
+            return jsonResponse(['error' => 'Тэг не существует!']);
+        }
 
         $deleted = $tag->delete();
-        if($deleted) {
+        if ($deleted) {
             NewsTags::where('tag_id', $this->request->id)->delete();
             return jsonResponse(['success' => 'Вы успешно удалили тэг!']);
         }
 
-        return jsonResponse( ['error' => 'Не удалось удалить тэг!'] );
+        return jsonResponse(['error' => 'Не удалось удалить тэг!']);
     }
 
-    public function add(){
+    public function add()
+    {
         $validator = Validator::make($this->request->all(), [
             'hover_color' => ['required', 'string', 'min:1', 'max:100'],
             'name' => ['required', 'string', 'min:1', 'max:100'],
@@ -64,15 +78,29 @@ class TagsController extends Controller implements ManagementInterface
             'is_hot' => 'Отображать как главной?',
         ]);
 
-        if( $validator->fails() ) return back()->withErrors($validator);
+        if ($validator->fails()) {
+            return back()->withErrors($validator);
+        }
 
-        $saved = Tags::create( $this->request->all() );
-        if($saved) return back()->with('success', 'Вы успешно создали тэг!');
+        $data = $this->request->all();
 
-        return back()->withErrors(['error' => 'Не удалось создать тэг. Перепроверьте входные данные и повторите попытку!']);
+        if (empty($data['slug'])) {
+            $slugify = new Slugify();
+            $data['slug'] = $slugify->slugify($data['name']);
+        }
+
+        $saved = Tags::create($data);
+        if ($saved) {
+            return back()->with('success', 'Вы успешно создали тэг!');
+        }
+
+        return back()->withErrors(
+            ['error' => 'Не удалось создать тэг. Перепроверьте входные данные и повторите попытку!']
+        );
     }
 
-    public function edit(){
+    public function edit()
+    {
         $validator = Validator::make($this->request->all(), [
             'id' => ['required', 'numeric', 'min:1'],
             'name' => ['required', 'string', 'min:1', 'max:100'],
@@ -84,15 +112,30 @@ class TagsController extends Controller implements ManagementInterface
             'is_hot' => 'Отображать как главной?',
         ]);
 
-        if( $validator->fails() ) return back()->withErrors($validator);
+        if ($validator->fails()) {
+            return back()->withErrors($validator);
+        }
 
         $tag = Tags::find($this->request->id);
-        if($tag == null) return back()->withErrors(['error' => 'Тэг не существует для редактирования!']);
+        if ($tag == null) {
+            return back()->withErrors(['error' => 'Тэг не существует для редактирования!']);
+        }
 
-        $updated = $tag->fill( $this->request->all() )->save();
+        $data = $this->request->all();
 
-        if($updated) return back()->with('success', 'Вы успешно отредактировали тэг!');
+        if (empty($data['slug'])) {
+            $slugify = new Slugify();
+            $data['slug'] = $slugify->slugify($data['name']);
+        }
 
-        return back()->withErrors(['error' => 'Не удалось отредактировать тэг. Перепроверьте входные данные и повторите попытку!']);
+        $updated = $tag->fill($data)->save();
+
+        if ($updated) {
+            return back()->with('success', 'Вы успешно отредактировали тэг!');
+        }
+
+        return back()->withErrors(
+            ['error' => 'Не удалось отредактировать тэг. Перепроверьте входные данные и повторите попытку!']
+        );
     }
 }

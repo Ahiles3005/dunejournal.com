@@ -55,6 +55,11 @@
 
                     @csrf
 
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">ЧПУ</span>
+                        <input type="text" name="slug" class="form-control">
+                    </div>
+
                     <div class="input-group align-items-center mb-1">
                         <span class="input-group-text">Главное Фото / Видео</span>
                         <input type="file" name="asset" class="form-control" accept="image/*,video/*">
@@ -131,6 +136,11 @@
                 <form class="modal-body" id="news-add" method="POST" action="{{ route('admin.news.add') }}" enctype="multipart/form-data">
 
                     @csrf
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">ЧПУ</span>
+                        <input type="text" name="slug" class="form-control">
+                    </div>
 
                     <div class="input-group align-items-center mb-1">
                         <span class="input-group-text">Главное Фото / Видео</span>

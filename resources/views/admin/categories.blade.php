@@ -59,6 +59,11 @@
                         <input type="text" name="name" class="form-control" required>
                     </div>
 
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">ЧПУ</span>
+                        <input type="text" name="slug" class="form-control">
+                    </div>
+
                     <input type="hidden" name="id">
 
                     <button class="btn btn-success w-100 mt-4">Сохранить</button>
@@ -82,6 +87,11 @@
                     <div class="input-group mb-3">
                         <span class="input-group-text">Название</span>
                         <input type="text" name="name" class="form-control" required>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">ЧПУ</span>
+                        <input type="text" name="slug" class="form-control">
                     </div>
 
                     <button class="btn btn-success w-100 mt-4">Сохранить</button>
