@@ -30,6 +30,15 @@ Route::controller(MainController::class)->group(function () {
     Route::get('/article/{slug}', 'pageNews')->name('page.news');    // PAGE: news
     Route::get('/list/tag/{slug}', 'filterByTag')->name('tag.search');    // Filter news by tag
     Route::get('/list/category/{slug}', 'filterByCategory')->name('category.search');    // Filter news by category
+    //rss yandex turbo
+    Route::get('/yandex/rss', 'yandexTurboRss')->name('yandex.turbo');    // Filter news by category
+
+    Route::get('/sitemap', 'SitemapController@index');
+    Route::get('/sitemap/posts', 'SitemapController@news');
+    Route::get('/sitemap/categories', 'SitemapController@categories');
+    Route::get('/sitemap/tags', 'SitemapController@tags');
+    Route::get('/sitemap.xml', 'SitemapController@index');
+
 });
 
 /* ========================== [ADMIN] ========================== */

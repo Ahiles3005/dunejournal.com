@@ -187,4 +187,18 @@ class MainController extends Controller
 
         ]);
     }
+
+    public function yandexTurboRss()
+    {
+        return response()->view('yandex_turbo',
+            [
+//            'tags' => Tags::all()->sortDesc(),
+//            'categories' => Categories::all(),
+            'news' => News::all()->sortDesc(),
+            ]
+        )->header('Content-Type', 'text/xml');
+    }
+
+
+
 }
