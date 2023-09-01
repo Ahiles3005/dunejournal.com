@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\TagsController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\SitemapController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,13 +33,14 @@ Route::controller(MainController::class)->group(function () {
     Route::get('/list/category/{slug}', 'filterByCategory')->name('category.search');    // Filter news by category
     //rss yandex turbo
     Route::get('/yandex/rss', 'yandexTurboRss')->name('yandex.turbo');    // Filter news by category
+});
 
-    Route::get('/sitemap', 'SitemapController@index');
-    Route::get('/sitemap/posts', 'SitemapController@news');
-    Route::get('/sitemap/categories', 'SitemapController@categories');
-    Route::get('/sitemap/tags', 'SitemapController@tags');
-    Route::get('/sitemap.xml', 'SitemapController@index');
-
+Route::controller(SitemapController::class)->group(function () {
+    Route::get('/sitemap', 'index');
+    Route::get('/sitemap/news', 'news');
+    Route::get('/sitemap/categories', 'categories');
+    Route::get('/sitemap/tags', 'tags');
+    Route::get('/sitemap.xml', 'index');
 });
 
 /* ========================== [ADMIN] ========================== */
